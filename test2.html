@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width, initial-scale=1.0">
+        <title>Document</title>
+        <script type="module">
+            globalThis.hashMap = {
+                "utils.js": "./utils.js",
+                "dayjs": "./day.js",
+                "lazy-loader": "./lazy-loader.js",
+                "example": "./example.js",
+            };
+        </script>
+        <script type="module">
+            const imports = [
+                import(globalThis.hashMap["utils.js"]),
+                import(globalThis.hashMap["dayjs"]),
+                import(globalThis.hashMap["lazy-loader"]),
+                import(globalThis.hashMap["example"]),
+            ];
+            await Promise.all(imports);
+            let module = await imports[0];
+            const noop = module.noop;
+            module = await imports[1];
+            const dayjs = module.default;
+            module = await imports[2];
+            const fetchCSS = module.css;
+            module = await imports[3];
+            const Example = module.default;
+            new Example("Kyle");
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
